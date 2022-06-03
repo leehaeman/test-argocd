@@ -1,15 +1,15 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: myapp-argo-application
+  name: helm-test
   namespace: argocd
 spec:
   project: default
 
   source:
-    repoURL: https://github.com/leehaeman/test-argocd.git
+    repoURL: https://github.com/leehaeman/test-argocd
     targetRevision: HEAD
-    path: dev
+    path: dev/ingress-nginx
   destination:
     server: https://kubernetes.default.svc
     namespace: myapp
