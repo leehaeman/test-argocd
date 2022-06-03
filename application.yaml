@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: helm-test
+  name: nginx-ingress-app-override
   namespace: argocd
 spec:
   project: default
@@ -12,7 +12,7 @@ spec:
     path: dev/ingress-nginx
   destination:
     server: https://kubernetes.default.svc
-    namespace: myapp
+    namespace: ingress-nginx
 
   syncPolicy:
     syncOptions:
