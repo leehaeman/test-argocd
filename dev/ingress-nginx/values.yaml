@@ -1,0 +1,45 @@
+controller:
+  config:
+    compute-full-forwarded-for: true
+    use-forwarded-headers: true
+  ingressClass: nginx
+  ingressClassResource:
+    name: nginx
+    enabled: true
+    default: false
+  service:
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-type: nlb
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  livenessProbe:
+    httpGet:
+      # should match container.healthCheckPath
+      path: "/healthz"
+      port: 10254
+      scheme: HTTP
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 1
+    successThreshold: 1
+    failureThreshold: 5
+  readinessProbe:
+    httpGet:
+      # should match container.healthCheckPath
+      path: "/healthz"
+      port: 10254
+      scheme: HTTP
+    initialDelaySeconds: 10
+    periodSeconds: 10
+    timeoutSeconds: 1
+    successThreshold: 1
+    failureThreshold: 3
+
+replicaCount: 2
